@@ -9,15 +9,15 @@ resource "aws_db_instance" "taskoverflow_database" {
   password               = local.database_password
   parameter_group_name   = "default.postgres14"
   skip_final_snapshot    = true
-  vpc_security_group_ids = [aws_security_group.taskoverflow_database.id]
+  vpc_security_group_ids = [aws_security_group.taskoverflow_database_2.id]
   publicly_accessible    = true
   tags = {
     Name = "taskoverflow_database"
   }
 }
 
-resource "aws_security_group" "taskoverflow_database" {
-  name        = "taskoverflow_database"
+resource "aws_security_group" "taskoverflow_database_2" {
+  name        = "taskoverflow_database_2"
   description = "Allow inbound Postgres traffic"
 
   ingress {

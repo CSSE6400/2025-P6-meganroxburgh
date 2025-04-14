@@ -53,14 +53,20 @@ resource "aws_ecs_service" "taskoverflow" {
 
   network_configuration {
     subnets             = data.aws_subnets.private.ids
-    security_groups     = [aws_security_group.taskoverflow.id]
+    security_groups     = [aws_security_group.taskoverflow_2.id]
     assign_public_ip    = true
+  }
+
+  load_balancer { 
+    target_group_arn = aws_lb_target_group.taskoverflow.arn 
+    container_name   = "taskoverflow" 
+    container_port   = 6400 
   }
 
 }
 
-resource "aws_security_group" "taskoverflow" {
-  name = "taskoverflow"
+resource "aws_security_group" "taskoverflow_2" {
+  name = "taskoverflow_2"
   description = "TaskOverflow Security Group"
 
   ingress {
